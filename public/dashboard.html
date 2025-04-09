@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criminal Cases Dashboard - Nyay Mitra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.7/countUp.umd.js"></script>
+</head>
+
+<body>
+    <div id="original-content">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2>Nyay Mitra</h2>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#dashboard" class="active">Dashboard</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><div id="google_translate_element" class="translate-widget"></div></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1>Criminal Cases Dashboard</h1>
+            <a href="index.html" class="btn">Back to Home</a>
+        </header>
+
+        <main>
+            <section>
+                <h2>Real-Time Criminal Cases Overview</h2>
+                <div class="features">
+                    <div class="dashboard-card fade-slide">
+                        <h3>Total Cases</h3>
+                        <p id="totalCases">4500000</p>
+                    </div>
+                    <div class="dashboard-card fade-slide">
+                        <h3>Pending Cases</h3>
+                        <p id="pendingCases">4000000</p>
+                    </div>
+                    <div class="dashboard-card fade-slide">
+                        <h3>Solved Cases</h3>
+                        <p id="solvedCases">500000</p>
+                    </div>
+                    <div class="dashboard-card fade-slide">
+                        <h3>Conviction Rate</h3>
+                        <p id="rate">68.3%</p>
+                    </div>
+                </div>
+
+                <canvas id="caseTrendChart" width="600" height="300"></canvas>
+                <canvas id="caseStatusChart" width="400" height="300"></canvas>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 Nyay Mitra. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        window.onload = () => {
+            const elements = document.querySelectorAll('.fade-slide');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('show');
+                }, index * 300);
+            });
+
+            const total = new countUp.CountUp('totalCases', 4500000, { duration: 4 });
+            total.start();
+            const total1 = new countUp.CountUp('pendingCases', 4000000, { duration: 3 });
+            total1.start();
+            const total2 = new countUp.CountUp('solvedCases', 500000, { duration: 2 });
+            total2.start();
+            const total3 = new countUp.CountUp('rate', 68.3, { duration: 1 });
+            total3.start();
+
+            const ctx = document.getElementById('caseTrendChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Monthly Cases',
+                        data: [200, 300, 250, 400, 380, 420],
+                        fill: true,
+                        borderColor: '#685FFF',
+                        backgroundColor: 'rgba(104,95,255,0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutBounce'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            const ctx2 = document.getElementById('caseStatusChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['Active', 'Closed', 'Pending FIRs'],
+                    datasets: [{
+                        data: [4000000, 500000, 4500000],
+                        backgroundColor: ['#685FFF', '#00C49F', '#FF8042']
+                    }]
+                },
+                options: {
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeInOutBack'
+                    }
+                }
+            });
+        };
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'fr,de,es,hi,zh,ar,ta,te,bn,gu,kn,ml,mr,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                multilanguagePage: true
+            }, 'google_translate_element');
+
+            setTimeout(() => {
+                const toolbar = document.querySelector('.goog-te-banner-frame');
+                if (toolbar) toolbar.style.display = 'none';
+            }, 1000);
+
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length) {
+                        const originalContent = document.querySelector('#original-content');
+                        const translatedContent = document.querySelector('body > div.translated-ltr, body > div.translated-rtl');
+                        if (translatedContent) {
+                            setTimeout(() => {
+                                if (originalContent) {
+                                    originalContent.style.display = 'none';
+                                }
+                                translatedContent.style.display = 'block';
+                                translatedContent.style.visibility = 'visible';
+                            }, 1500);
+                            observer.disconnect();
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    </script>
+</body>
+
+</html>

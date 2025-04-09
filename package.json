@@ -1,0 +1,12 @@
+{
+    "name": "nyay-mitra",
+    "version": "1.0.0",
+    "description": "Justice platform for India",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.21.2"
+    }
+}

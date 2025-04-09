@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Nyay Mitra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Move Google Translate script to head with defer -->
+    <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div id="original-content">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2>Nyay Mitra</h2>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><div id="google_translate_element" class="translate-widget"></div></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+    <main>
+        <section class="intro">
+            <h2>Get in Touch</h2>
+            <p>We’re here to assist you! Reach out with your questions, feedback, or support requests.</p>
+        </section>
+        <section class="contact-content">
+            <h2>Contact Information</h2>
+            <p><strong>Email:</strong> support@nyaymitra.in</p>
+            <p><strong>Phone:</strong> +91 9011359090</p>
+            <p><strong>Address:</strong> Ashok Nagar, Pune, India - 411033</p>
+            <h2>Send Us a Message</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Nyay Mitra. All Rights Reserved.</p>
+    </footer>
+</div>
+    <script src="script.js"></script>
+    <!-- Google Translate Widget -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'fr,de,es,hi,zh,ar,ta,te,bn,gu,kn,ml,mr,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                multilanguagePage: true
+            }, 'google_translate_element');
+
+            setTimeout(() => {
+                const toolbar = document.querySelector('.goog-te-banner-frame');
+                if (toolbar) toolbar.style.display = 'none';
+            }, 1000);
+
+            // Use MutationObserver to detect DOM changes and manage content
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length) {
+                        const originalContent = document.querySelector('#original-content');
+                        const translatedContent = document.querySelector('body > div.translated-ltr, body > div.translated-rtl');
+                        if (translatedContent) {
+                            console.log('Translated content found:', translatedContent);
+                            setTimeout(() => {
+                                if (originalContent) {
+                                    originalContent.style.display = 'none';
+                                    console.log('Original content hidden');
+                                }
+                                translatedContent.style.display = 'block';
+                                translatedContent.style.visibility = 'visible';
+                                console.log('Translated content displayed');
+                            }, 1500);
+                            observer.disconnect();
+                        } else {
+                            console.log('No translated content found yet');
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    </script>
+</body>
+</html>

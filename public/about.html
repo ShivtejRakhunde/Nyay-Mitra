@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Nyay Mitra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div id="original-content">
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2>Nyay Mitra</h2>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><div id="google_translate_element" class="translate-widget"></div></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>About Nyay Mitra</h1>
+    </header>
+    <main>
+        <section class="intro">
+            <h2>Our Mission</h2>
+            <p>Nyay Mitra is a revolutionary platform designed to bridge the justice gap in India. With over 45 million pending cases and 78% of citizens unaware of their legal rights, we aim to empower police officers, legal professionals, and citizens through innovative technology.</p>
+        </section>
+        <section class="about-content">
+            <h2>What We Do</h2>
+            <p>We provide three dedicated portals:</p>
+            <ul>
+                <li><strong>Police Portal:</strong> Tools for officers to access records, automate FIRs, and analyze crime trends.</li>
+                <li><strong>Lawyer Portal:</strong> Resources for legal professionals to generate documents and connect nationwide.</li>
+                <li><strong>Citizen Portal:</strong> A multilingual chatbot to help citizens understand laws and find help.</li>
+            </ul>
+            <p>With support for 22 languages, speech-to-text, and predictive analytics, Nyay Mitra is your friend in justice.</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Nyay Mitra. All Rights Reserved.</p>
+    </footer>
+</div>
+    <script src="script.js"></script>
+    <!-- Google Translate Widget -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'fr,de,es,hi,zh,ar,ta,te,bn,gu,kn,ml,mr,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                multilanguagePage: true
+            }, 'google_translate_element');
+
+            setTimeout(() => {
+                const toolbar = document.querySelector('.goog-te-banner-frame');
+                if (toolbar) toolbar.style.display = 'none';
+            }, 1000);
+
+            // Use MutationObserver to detect DOM changes and manage content
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length) {
+                        const originalContent = document.querySelector('#original-content');
+                        const translatedContent = document.querySelector('body > div.translated-ltr, body > div.translated-rtl');
+                        if (translatedContent) {
+                            console.log('Translated content found:', translatedContent);
+                            setTimeout(() => {
+                                if (originalContent) {
+                                    originalContent.style.display = 'none';
+                                    console.log('Original content hidden');
+                                }
+                                translatedContent.style.display = 'block';
+                                translatedContent.style.visibility = 'visible';
+                                console.log('Translated content displayed');
+                            }, 1500);
+                            observer.disconnect();
+                        } else {
+                            console.log('No translated content found yet');
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    </script>
+</body>
+</html>
